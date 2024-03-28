@@ -17,6 +17,7 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
+  secret: process.env.NEXTAUTH_SECRET, // Define your secret here
   callbacks: {
     session: async ({session, token, user}) => {
       if (session?.user?.email.split('@')[1] === INSTITUTION || adminEmails.includes(session?.user?.email)) {
