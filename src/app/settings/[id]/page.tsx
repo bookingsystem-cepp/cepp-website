@@ -18,7 +18,7 @@ const Settings = ({ params }: { params: { id: string } }) => {
     fetchUser();
   }, [])
   const fetchUser = () => {
-    axios.get("http://localhost:8000/api/user/get-by-id/"+params.id).then((result) => {
+    axios.get("http://54.179.58.129:8000/api/user/get-by-id/"+params.id).then((result) => {
       setUser(result.data);
     });
   }
@@ -37,7 +37,7 @@ const Settings = ({ params }: { params: { id: string } }) => {
         tel: tel
       }
     }
-    axios.put('http://localhost:8000/api/user/edit', dataInfo);
+    axios.put('http://54.179.58.129:8000/api/user/edit', dataInfo);
     router.push('/profile/'+user?._id);
   }
   return (

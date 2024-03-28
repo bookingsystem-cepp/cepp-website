@@ -1,6 +1,8 @@
 'use client'
 
 import { HISTORY } from "@/types/history";
+import { SESSION } from "@/types/session";
+import { USER } from "@/types/user";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -14,9 +16,10 @@ const TableHistory = () => {
   const { data: session } = useSession();
   useEffect(() => {
     fetchHistories();
+    console.log(typeof(session))
   }, [])
   const fetchHistories = () => {
-    axios.get("http://localhost:8000/api/history/get-by-borrower/"+session?.user?.id).then((result) => {
+    axios.get("http://54.179.58.129:8000/api/history/get-by-borrower/"+session?.user?.id).then((result) => {
         setHistories(result.data);
     });
   }
@@ -32,7 +35,7 @@ const TableHistory = () => {
             const dataInfo = {
                 historyId: id
             };
-            axios.post("http://localhost:8000/api/history/returning", dataInfo)
+            axios.post("http://54.179.58.129:8000/api/history/returning", dataInfo)
             Swal.fire({
                 title: "Successfully",
                 text: `You history is change state to return!`,

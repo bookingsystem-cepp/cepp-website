@@ -32,11 +32,11 @@ const Profile = ({ params }: { params: { id: string } }) => {
     fetchItem();
   }, [])
   const fetchItem = () => {
-    axios.get("http://localhost:8000/api/item/get-by-id/"+params.id).then((result) => {
+    axios.get("http://54.179.58.129:8000/api/item/get-by-id/"+params.id).then((result) => {
         setItem(result.data);
-        axios.get("http://localhost:8000/api/category/get-by-id/"+result.data.category).then((result) => {
+        axios.get("http://54.179.58.129:8000/api/category/get-by-id/"+result.data.category).then((result) => {
             setCategory(result.data);
-            axios.get("http://localhost:8000/api/user/get-by-id/"+result.data.owner).then((result) => {
+            axios.get("http://54.179.58.129:8000/api/user/get-by-id/"+result.data.owner).then((result) => {
                 setUser(result.data);
             });
         });
@@ -56,7 +56,7 @@ const Profile = ({ params }: { params: { id: string } }) => {
                 borrowerId: session?.user?.id,
                 itemId: item?._id,
             };
-            axios.post("http://localhost:8000/api/history/create", dataInfo);
+            axios.post("http://54.179.58.129:8000/api/history/create", dataInfo);
             Swal.fire({
                 title: "Successfully",
                 text: `You request is pending to owner can see in histories`,
@@ -107,7 +107,6 @@ const Profile = ({ params }: { params: { id: string } }) => {
             >
               Borrow
             </button>
-
           </div>
         </div>
       </div>

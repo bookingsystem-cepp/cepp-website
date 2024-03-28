@@ -17,7 +17,7 @@ const Profile = ({ params }: { params: { id: string } }) => {
     fetchUser();
   }, [])
   const fetchUser = () => {
-    axios.get("http://localhost:8000/api/user/get-by-id/"+params.id).then((result) => {
+    axios.get("http://54.179.58.129:8000/api/user/get-by-id/"+params.id).then((result) => {
       setUser(result.data);
     });
   }

@@ -17,24 +17,26 @@ const TableItem: React.FC<{ id: string }> = ({ id }) => {
     fetchCategory();
   }, [])
   const fetchItems = () => {
-    axios.get("http://localhost:8000/api/item/get-by-category/"+id).then((result) => {
+    axios.get("http://54.179.58.129:8000/api/item/get-by-category/"+id).then((result) => {
         setItems(result.data);
     });
   }
   const fetchCategory = () => {
-    axios.get("http://localhost:8000/api/category/get-by-id/"+id).then((result) => {
+    axios.get("http://54.179.58.129:8000/api/category/get-by-id/"+id).then((result) => {
         setCategory(result.data);
-        axios.get("http://localhost:8000/api/user/get-by-id/"+result.data.owner).then((result) => {
+        axios.get("http://54.179.58.129:8000/api/user/get-by-id/"+result.data.owner).then((result) => {
             setUser(result.data);
         });
     });
   }
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <div className="flex flex-row justify-between">
+      
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
             {category?.name}
         </h4>  
+      <div className="flex flex-row justify-between">
+        <h5>Description: {category?.description}</h5>
         <div className="flex flex-row mr-6 gap-6">
             <h5>Location: {category?.location} </h5>
             <h5>Owner: <Link href={'/profile/'+user?._id} className="text-meta-3 hover:underline cursor-pointer">{user?.firstname}</Link></h5>
