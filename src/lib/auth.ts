@@ -1,7 +1,7 @@
-import { NextAuthOptions, getServerSession } from "next-auth";
-import GoogleProvider from "next-auth/providers/google"
-import clientPromise from '@/lib/mongodb'
-import { MongoDBAdapter } from '@auth/mongodb-adapter'
+import { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import clientPromise from '@/lib/mongodb';
+import { MongoDBAdapter } from '@auth/mongodb-adapter';
 
 const adminEmails = ['jinokrit@gmail.com', '64010022@kmitl.ac.th'];
 const INSTITUTION = 'kmitl.ac.th';
@@ -17,9 +17,9 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
-  secret: process.env.NEXTAUTH_SECRET, // Define your secret here
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    session: async ({session, token, user}) => {
+    session: async ({ session, token, user }) => {
       if (session?.user?.email.split('@')[1] === INSTITUTION || adminEmails.includes(session?.user?.email)) {
         if (user) {
           // If user is present, update user data with default values
@@ -32,10 +32,10 @@ export const authConfig: NextAuthOptions = {
             year: DEFAULT_YEAR,
             scores: DEFAULT_SCORES,
           };
-          
+
           // Update user data in the database
           await MongoDBAdapter(clientPromise).updateUser(updatedUser);
-  
+
           // Return updated session
           return { ...session, user: updatedUser };
         }
@@ -44,5 +44,17 @@ export const authConfig: NextAuthOptions = {
         return false;
       }
     },
-  }
-}
+  },
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error', // Error code doesn't work as of now, so this should not be necessary
+  },
+  session: {
+    jwt: true,
+  },
+  // Define NEXTAUTH_URL environment variable
+  site: process.env.NEXTAUTH_URL || 'http://localhost:3000', // Change the default URL here
+};
+
+export default authConfig;
