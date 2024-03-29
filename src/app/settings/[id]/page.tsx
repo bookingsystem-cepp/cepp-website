@@ -92,6 +92,7 @@ const Settings = ({ params }: { params: { id: string } }) => {
                         type="text"
                         name={user?.username}
                         id="username"
+                        maxLength={10}
                         defaultValue={user?.username}
                         placeholder={user?.username}
                         onChange={ev => setUsername(ev.target.value)}
@@ -113,6 +114,7 @@ const Settings = ({ params }: { params: { id: string } }) => {
                       id="tel"
                       placeholder={user?.tel}
                       defaultValue={user?.tel}
+                      maxLength={10}
                       onChange={ev => setTel(ev.target.value)}
                     />
                   </div>
@@ -223,7 +225,7 @@ const Settings = ({ params }: { params: { id: string } }) => {
                   </button>
                   <button
                     className={"flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90"}
-                    onClick={() => {(/^\d+$/.test(tel) && tel.length === 10 ) ? handleSubmit : alert("Please check your in formation")}}
+                    onClick={handleSubmit}
                   >
                     Save
                   </button>
