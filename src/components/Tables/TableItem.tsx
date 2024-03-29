@@ -17,14 +17,14 @@ const TableItem: React.FC<{ id: string }> = ({ id }) => {
     fetchCategory();
   }, [])
   const fetchItems = () => {
-    axios.get("http://54.179.58.129:8000/api/item/get-by-category/"+id).then((result) => {
+    axios.get("https://backend.tirk101.online/api/item/get-by-category/"+id).then((result) => {
         setItems(result.data);
     });
   }
   const fetchCategory = () => {
-    axios.get("http://54.179.58.129:8000/api/category/get-by-id/"+id).then((result) => {
+    axios.get("https://backend.tirk101.online/api/category/get-by-id/"+id).then((result) => {
         setCategory(result.data);
-        axios.get("http://54.179.58.129:8000/api/user/get-by-id/"+result.data.owner).then((result) => {
+        axios.get("https://backend.tirk101.online/api/user/get-by-id/"+result.data.owner).then((result) => {
             setUser(result.data);
         });
     });

@@ -14,7 +14,7 @@ const TableCategory: React.FC = () => {
   }, [])
 
   const fetchCategories = () => {
-    axios.get("http://54.179.58.129:8000/api/category/get-all").then((result) => {
+    axios.get("https://backend.tirk101.online/api/category/get-all").then((result) => {
       setCategories(result.data);
     });
   }

@@ -19,7 +19,7 @@ const TableHistory = () => {
     console.log(typeof(session))
   }, [])
   const fetchHistories = () => {
-    axios.get("http://54.179.58.129:8000/api/history/get-by-borrower/"+session?.user?.id).then((result) => {
+    axios.get("https://backend.tirk101.online/api/history/get-by-borrower/"+session?.user?.id).then((result) => {
         setHistories(result.data);
     });
   }
@@ -35,7 +35,7 @@ const TableHistory = () => {
             const dataInfo = {
                 historyId: id
             };
-            axios.post("http://54.179.58.129:8000/api/history/returning", dataInfo)
+            axios.post("https://backend.tirk101.online/api/history/returning", dataInfo)
             Swal.fire({
                 title: "Successfully",
                 text: `You history is change state to return!`,
